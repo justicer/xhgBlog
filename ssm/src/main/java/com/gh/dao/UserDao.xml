@@ -12,11 +12,12 @@
     <sql id="Base_Column_List" >
         user_id, user_name, password, phone,email,address
     </sql>
-    <select id="findUser" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    
+    <select id="findByUserName" resultMap="BaseResultMap" parameterType="string" >
         select
         <include refid="Base_Column_List" />
         from user
-        where user_id = #{user_id,jdbcType=INTEGER}
+        where user_name = #{user_name,jdbcType=VARCHAR}
     </select>
     
     <select id="findAllUser" resultMap="BaseResultMap" >
@@ -30,9 +31,9 @@
         where user_id = #{user_id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.gh.entity.User" >
-        insert into user (user_id, user_name, password,
+        insert into user (user_name, password,
         phone,email,address)
-        values (#{user_id,jdbcType=INTEGER}, #{user_name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        values ( #{user_name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
         #{phone,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR})
     </insert>
     

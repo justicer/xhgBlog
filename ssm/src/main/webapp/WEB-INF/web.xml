@@ -39,6 +39,11 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    
+    <!-- 自制的监听器，目的是服务器已启动就获取项目路径供页面调用 -->
+    <listener>
+        <listener-class>com.gh.listener.StartSystemListener</listener-class>
+    </listener>
 
     <!-- springMVC核心配置 -->
     <servlet>
