@@ -1,7 +1,6 @@
 package com.gh.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +52,10 @@ public class UserServiceImpl  implements UserService{
 		return userDao.findByUserName(user_name);
 	}
 
+	@Override
+	public List<User> likQueryUser(String userInfo) {
+		// TODO Auto-generated method stub
+		return userDao.likQueryUser(userInfo);
+	}
 
 }

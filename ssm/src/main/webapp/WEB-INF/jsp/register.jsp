@@ -65,7 +65,7 @@
 function register(){
 	var user_name = $.trim($("#user_name").val());
 	var password = $.trim($("#psd").val());
-	var email =$.trim( $("#user_name").val());
+	var email =$.trim( $("#email").val());
 	var phone = $.trim($("#phone").val());
 	var address = $.trim($("#address").val());
 	if(user_name != "" && password != "" && email != "" && phone != "" && address != ""){

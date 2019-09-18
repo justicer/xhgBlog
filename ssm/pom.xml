@@ -167,6 +167,20 @@
             <artifactId>mybatis</artifactId>
             <version>${mybatis.version}</version>
         </dependency>
+        
+       <!--pagehelper-->
+		<dependency>
+		  <groupId>com.github.pagehelper</groupId>
+		  <artifactId>pagehelper</artifactId>
+		  <version>4.1.6</version>
+		</dependency>
+		
+		<!-- pagehelper的依赖包:jsqlparser -->
+		<dependency>
+		  <groupId>com.github.jsqlparser</groupId>
+		  <artifactId>jsqlparser</artifactId>
+		  <version>0.9.5</version>
+		</dependency>
 
         <!-- mybatis/spring包 -->
         <dependency>

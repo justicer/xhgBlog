@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gh.entity.User;
 import com.gh.service.UserService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping(value="/user")
@@ -34,6 +37,20 @@ public class UserController {
 		@RequestMapping(value="/login")
 		public String login() {
 			return "login";
+		}
+		
+		  //进入添加页面
+		@RequestMapping(value="/add")
+		public String add() {
+			return "add";
+		}
+		
+		 //进入修改页面
+		@RequestMapping(value="/ToUpdate")
+		public String ToUpdate(HttpServletRequest request,HttpServletResponse response,Model model,Integer id) {
+			User user = userService.findUser(id);
+			model.addAttribute("user", user);
+			return "update";
 		}
 		
 		//验证登录
@@ -87,30 +104,62 @@ public class UserController {
 			return resultMap;
 		}
 	
-	//查找全部用户
+	//查找用户
 	@RequestMapping(value="/list")
-	public String list(HttpServletRequest request,HttpServletResponse response,Model model) {
+	public String list(@RequestParam(required=true,defaultValue="1")Integer page,HttpServletRequest request,HttpServletResponse response,Model model) {
+		PageHelper.startPage(page, 1); 
 		List<User> list = userService.findAllUser();
+		PageInfo<User> pageInfo=new PageInfo<User>(list);  
+		model.addAttribute("pageInfo",pageInfo);
 		model.addAttribute("list",list);
 		return "list";
 	}
+	
+		//查找用户
+		@RequestMapping(value="/likQueryUser")
+		public String likQueryUser(@RequestParam(required=true,defaultValue="1")Integer page,HttpServletRequest request,HttpServletResponse response,Model model) {
+			PageHelper.startPage(page, 1); 
+			String userInfo = request.getParameter("queryContent");
+			List<User> list = userService.likQueryUser(userInfo);
+			PageInfo<User> pageInfo=new PageInfo<User>(list);  
+			model.addAttribute("pageInfo",pageInfo);
+			model.addAttribute("list",list);
+			return "list";
+		}
+	
 	
 	   //删除用户
 		@RequestMapping(value="/delete")
 		public String delete(HttpServletRequest request,HttpServletResponse response,Model model,Integer id) {
 			userService.deleteByPrimaryKey(id);
-			List<User> list = userService.findAllUser();
-			model.addAttribute("list",list);
-			return "list";
+			return null;
 		}
 		
 		 //修改用户
+		@ResponseBody
 		@RequestMapping(value="/update")
-		public String update(HttpServletRequest request,HttpServletResponse response,Model model,User user) {
-			userService.updateUser(user);
-			List<User> list = userService.findAllUser();
-			model.addAttribute("list",list);
-			return "list";
+		public Map<String, String> update(HttpServletRequest request,HttpServletResponse response,Model model,User user) {
+			
+			Map<String, String> resultMap = new HashMap<String,String>();
+			try {
+				User isExistuUser = userService.findByUserName(user.getUser_name());
+				if(isExistuUser == null) {
+					resultMap.put("message", "ok");
+					User oldUser = userService.findUser(user.getUser_id());
+					oldUser.setAddress(user.getAddress());
+					oldUser.setEmail(user.getEmail());
+					oldUser.setPassword(user.getPassword());
+					oldUser.setPhone(user.getPhone());
+					oldUser.setUser_name(user.getUser_name());
+					userService.updateUser(oldUser);
+				}else {
+					resultMap.put("message", "用户名已存在！");
+				}
+			} catch (Exception e) {
+				resultMap.put("message", "输入信息有误，请重新输入！");
+				e.printStackTrace();
+			}
+			return resultMap;
 		}
 
 }

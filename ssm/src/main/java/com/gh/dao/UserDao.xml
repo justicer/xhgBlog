@@ -26,6 +26,19 @@
         from user
     </select>
     
+     <select id="findUser" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from user where user_id=#{id,jdbcType=INTEGER}
+    </select>
+    
+    <select id="likQueryUser" resultMap="BaseResultMap"  parameterType="string">
+        select
+        <include refid="Base_Column_List" />
+        from user where CONCAT(user_name,password,
+        phone,email,address) like '%${userInfo}%' 
+    </select>
+    
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
         delete from user
         where user_id = #{user_id,jdbcType=INTEGER}
@@ -37,9 +50,10 @@
         #{phone,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR})
     </insert>
     
-    <update id="updateUser" parameterType="com.gh.entity.User" >
+    <update id="updateUser"   parameterType="com.gh.entity.User">
         update user
-        set user_name = #{user_name,jdbcType=VARCHAR},
+        set 
+        user_name = #{user_name,jdbcType=VARCHAR},
         password = #{password,jdbcType=VARCHAR},
         phone = #{phone,jdbcType=VARCHAR},
         email = #{email,jdbcType=VARCHAR},

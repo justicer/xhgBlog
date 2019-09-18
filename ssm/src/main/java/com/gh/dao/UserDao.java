@@ -3,6 +3,8 @@ package com.gh.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.gh.entity.User;
 
 public interface UserDao {
@@ -18,5 +20,7 @@ public interface UserDao {
 	void insert(User user);
 
 	User findByUserName(String user_name);
+	
+	public List<User> likQueryUser(@Param("userInfo")String userInfo);
 	
 }
