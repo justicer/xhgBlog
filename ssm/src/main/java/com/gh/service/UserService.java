@@ -9,7 +9,7 @@ List<User> findAllUser();
 	
 	User findUser(Integer id);
 	
-	User updateUser(User user);
+	void updateUser(User user);
 	
 	void deleteByPrimaryKey(Integer id);
 	

@@ -45,6 +45,12 @@ public class UserController {
 			return "add";
 		}
 		
+		  //进入添加页面
+		@RequestMapping(value="/permission")
+		public String permission() {
+			return "permission";
+		}
+		
 		 //进入修改页面
 		@RequestMapping(value="/ToUpdate")
 		public String ToUpdate(HttpServletRequest request,HttpServletResponse response,Model model,Integer id) {
@@ -145,13 +151,7 @@ public class UserController {
 				User isExistuUser = userService.findByUserName(user.getUser_name());
 				if(isExistuUser == null) {
 					resultMap.put("message", "ok");
-					User oldUser = userService.findUser(user.getUser_id());
-					oldUser.setAddress(user.getAddress());
-					oldUser.setEmail(user.getEmail());
-					oldUser.setPassword(user.getPassword());
-					oldUser.setPhone(user.getPhone());
-					oldUser.setUser_name(user.getUser_name());
-					userService.updateUser(oldUser);
+					userService.updateUser(user);
 				}else {
 					resultMap.put("message", "用户名已存在！");
 				}
