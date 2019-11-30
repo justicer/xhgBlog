@@ -1,0 +1,133 @@
+.row-align{
+    display: flex;
+    align-items: center;
+}
+.text-align-center{
+    display: block;
+    text-align: center;
+}
+.text-underline{
+    text-decoration-line: underline;
+}
+.common-padding{
+    padding: 20px;
+}
+.common-padding-x{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.common-padding-y{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.pane-bg-radius{
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+.pane-radius{
+    border-radius: 3px;
+}
+.top-radius{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.bottom-radius{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.top-left-radius{
+    border-top-left-radius: 3px;
+}
+.top-right-radius{
+    border-top-right-radius: 3px;
+}
+.bottom-left-radius{
+    border-bottom-left-radius: 3px;
+}
+.bottom-right-radius{
+    border-bottom-right-radius: 3px;
+}
+
+.font-color1{
+    color: #ffffff;
+}
+.font-color2{
+    color: #999999;
+}
+.font-color3{
+    color: #666666;
+}
+.font-color4{
+    color: #212121;
+}
+.font-color5{
+    color: #000000;
+}
+
+.font-size1{
+    font-size: 12px;
+}
+.font-size2{
+    font-size: 14px;
+}
+.font-size3{
+    font-size: 18px;
+}
+.font-bold{
+    font-weight: bold;
+}
+.font-bold2{
+    font-weight: bold;
+}
+
+.padding-hr{
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.hr-line-div{
+    width: 100%;
+    border-top: 1px solid #e4e3e3;
+    /*transform: scaleY(0.3);*/
+}
+/*以上都是公用的样式-------------------------------End-------------------*/
+
+
+.visit-img-box{
+    width: 100%;
+    height: 150px;
+    overflow:hidden;
+}
+.visit-img-box img{
+    width: 100%;
+    margin: 0px auto;
+}
+.headimg-box{
+    border: 4px solid #ffffff;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0px auto;
+    background-color: #d4d4d4;
+    box-shadow: 0px 0px 6px 1px #424242;
+    position: relative;
+    top: -50px;
+}
+.headimg-box img{
+    width: 80px;
+}
+.nickname{
+    margin-top: -30px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.nickname span img{
+    transform: rotate(45deg);
+}
+.mine-msg{
+    padding-top: 0px;
+}
+.mine-msg div{
+    line-height: 28px;
+}
+

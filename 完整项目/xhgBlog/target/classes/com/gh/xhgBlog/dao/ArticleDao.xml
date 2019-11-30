@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gh.xhgBlog.dao.ArticleDao" >
+    <resultMap id="BaseResultMap" type="com.gh.xhgBlog.pojo.Article" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="headTitle" property="headTitle" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="timeDate" property="timeDate" jdbcType="VARCHAR" />
+        <result column="godCount" property="godCount" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, headTitle, content, timeDate,godCount
+    </sql>
+    
+    <select id="findAllArticle" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from article
+    </select>
+    
+     <select id="findArticle" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from article where id=#{id,jdbcType=INTEGER}
+    </select>
+    
+    
+    <select id="findPreAndNextArticle" resultMap="BaseResultMap"  parameterType="java.lang.Integer" >
+        (select id,headTitle from article where id <![CDATA[ < ]]> #{id,jdbcType=INTEGER} order by id desc limit 0,1)
+			union all
+		(select id,headTitle from article where id <![CDATA[ > ]]> #{id,jdbcType=INTEGER} order by id asc  limit 0,1)
+    </select>
+    
+    
+    <select id="likeQueryArticle" resultMap="BaseResultMap"  parameterType="string">
+        select
+        <include refid="Base_Column_List" />
+        from article where CONCAT(headTitle, content, timeDate,godCount) like '%${articleInfo}%' 
+    </select>
+    
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from article
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    <insert id="insert" parameterType="com.gh.xhgBlog.pojo.Article" >
+        insert into article (headTitle, content, timeDate,godCount)
+        values ( #{headTitle,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+        #{timeDate,jdbcType=VARCHAR},#{godCount,jdbcType=INTEGER})
+    </insert>
+    
+    <update id="updateArticle"   parameterType="com.gh.xhgBlog.pojo.Article">
+        update article
+        set 
+        headTitle = #{headTitle,jdbcType=VARCHAR},
+        content = #{content,jdbcType=VARCHAR},
+        timeDate = #{timeDate,jdbcType=VARCHAR},
+        godCount = #{godCount,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
